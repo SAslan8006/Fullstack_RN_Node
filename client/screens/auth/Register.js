@@ -53,7 +53,7 @@ const Register = ({ navigation }) => {
                 handleSubmit={handleSubmit}
             />
             <Text style={styles.linkText}>
-                ALready Register Please{" "}
+                Already Register Please{" "}
                 <Text style={styles.link} onPress={() => navigation.navigate("Login")}>
                     LOGIN
                 </Text>{" "}
