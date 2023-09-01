@@ -20,7 +20,12 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //ROUTES
-app.use("/api/v1/auth", require("./routes/userRoutes"));
+app.get("", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Welcome to full stack app",
+    });
+});
 
 //PORT
 const PORT = process.env.PORT || 8080;
