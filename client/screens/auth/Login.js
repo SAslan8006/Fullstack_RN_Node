@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 import InputBox from "../../components/Forms/InputBox";
 import SubmitButton from "../../components/Forms/SubmitButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { AuthContext } from "../../context/authContext";
 const Login = ({ navigation }) => {
     //global state
     const [state, setState] = useContext(AuthContext);
