@@ -6,6 +6,10 @@ import Register from "../../screens/auth/Register";
 import Login from "../../screens/auth/Login";
 import { AuthContext } from "../../context/authContext";
 import HeaderMenu from "./HeaderMenu";
+import Post from "../../screens/Post";
+import About from "../../screens/About";
+import Account from "../../screens/Account";
+import Myposts from "../../screens/Myposts";
 const ScreenMenu = () => {
     //global state
     const [state] = useContext(AuthContext);
@@ -24,17 +28,49 @@ const ScreenMenu = () => {
                             headerRight: () => <HeaderMenu />,
                         }}
                     />
+                    <Stack.Screen
+                        name="Post"
+                        component={Post}
+                        options={{
+                            headerBackTitle: "Back",
+                            headerRight: () => <HeaderMenu />,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="About"
+                        component={About}
+                        options={{
+                            headerBackTitle: "Back",
+                            headerRight: () => <HeaderMenu />,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Account"
+                        component={Account}
+                        options={{
+                            headerBackTitle: "Back",
+                            headerRight: () => <HeaderMenu />,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Myposts"
+                        component={Myposts}
+                        options={{
+                            headerBackTitle: "Back",
+                            headerRight: () => <HeaderMenu />,
+                        }}
+                    />
                 </>
             ) : (
                 <>
                     <Stack.Screen
-                        name="Register"
-                        component={Register}
+                        name="Login"
+                        component={Login}
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
-                        name="Login"
-                        component={Login}
+                        name="Register"
+                        component={Register}
                         options={{ headerShown: false }}
                     />
                 </>

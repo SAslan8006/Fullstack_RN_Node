@@ -6,25 +6,27 @@ const AuthContext = createContext();
 
 //provider
 const AuthProvider = ({ children }) => {
-
     //golbal state
     const [state, setState] = useState({
         user: null,
         token: "",
     });
 
-    //default axios setting
-    axios.defaults.baseURL = "http://192.168.1.2:8080/api/v1";
-
     // initial local storage data
     useEffect(() => {
         const loadLoaclStorageData = async () => {
             let data = await AsyncStorage.getItem("@auth");
             let loginData = JSON.parse(data);
-            setState({ ...state, user: data?.user, token: data?.token });
+
+            setState({ ...state, user: loginData?.user, token: loginData?.token });
         };
         loadLoaclStorageData();
     }, []);
+
+    let token = state && state.token;
+    //default axios setting
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios.defaults.baseURL = "http://192.168.1.2:8080/api/v1";
 
     return (
         <AuthContext.Provider value={[state, setState]}>
