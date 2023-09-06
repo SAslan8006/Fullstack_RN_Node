@@ -6,7 +6,7 @@ const {
     requireSingIn,
 } = require("../controllers/userController");
 
-//router object
+//riouter object
 const router = express.Router();
 
 //routes
