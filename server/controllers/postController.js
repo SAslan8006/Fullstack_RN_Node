@@ -60,7 +60,7 @@ const getUserPostsController = async (req, res) => {
         const userPosts = await postModel.find({ postedBy: req.auth._id });
         res.status(200).send({
             success: true,
-            message: "user posts",
+            message: "User Posts",
             userPosts,
         });
     } catch (error) {
@@ -72,8 +72,28 @@ const getUserPostsController = async (req, res) => {
         });
     }
 };
+
+// delete post
+const deletePostsController = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await postModel.findByIdAndDelete({ _id: id });
+        res.status(200).send({
+            success: true,
+            message: "Delete Posts",
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: "Error in Delete POST API",
+            error,
+        });
+    }
+};
 module.exports = {
     createPostController,
     getAllPostsContoller,
     getUserPostsController,
+    deletePostsController,
 };
