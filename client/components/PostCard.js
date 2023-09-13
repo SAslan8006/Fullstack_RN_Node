@@ -1,9 +1,16 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
+import axios from "axios";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
+import EditModal from "./EditModal";
 
 const PostCard = ({ posts, myPostScreen }) => {
+    const [loading, setLoading] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [post, setPost] = useState({});
+    const navigation = useNavigation();
     //handle delete prompt
     const handleDeletePropmt = (id) => {
         Alert.alert("Attention!", "Are You Sure Want to delete this post?", [
@@ -20,6 +27,7 @@ const PostCard = ({ posts, myPostScreen }) => {
         ]);
     };
 
+
     //delete post data
     const handleDeletePost = async (id) => {
         try {
@@ -27,7 +35,7 @@ const PostCard = ({ posts, myPostScreen }) => {
             const { data } = await axios.delete(`/post/delete-post/${id}`);
             setLoading(false);
             alert(data?.message);
-            navigation.navigate("Home");
+            navigation.push("Myposts");
         } catch (error) {
             setLoading(false);
             console.log(error);
@@ -37,11 +45,28 @@ const PostCard = ({ posts, myPostScreen }) => {
     return (
         <View>
             <Text style={styles.heading}>Total Posts {posts?.length}</Text>
+            {myPostScreen && (
+                <EditModal
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    post={post}
+                />
+            )}
             {posts?.map((post, i) => (
                 <View style={styles.card} key={i}>
                     {myPostScreen && (
-                        <View>
-                            <Text style={{ textAlign: "right" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                            <Text style={{ marginHorizontal: 20 }}>
+                                <FontAwesome5
+                                    name="pen"
+                                    size={16}
+                                    color={"darkblue"}
+                                    onPress={() => {
+                                        setPost(post), setModalVisible(true);
+                                    }}
+                                />
+                            </Text>
+                            <Text>
                                 <FontAwesome5
                                     name="trash"
                                     size={16}
